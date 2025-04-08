@@ -1,0 +1,12 @@
+Flask
+Flask-SQLAlchemy
+Flask-Cors
+mysql-connector-python
+PyJWT
+reportlab
+python-dotenv
+Pillow
+matplotlib
+opencv-python
+pyzbar
+numpy
