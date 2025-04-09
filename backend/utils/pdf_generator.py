@@ -6,6 +6,7 @@ from io import BytesIO
 import matplotlib.pyplot as plt
 import logging
 from datetime import datetime  # Corrección 1: Importar datetime
+from reportlab.pdfgen import canvas
 
 logger = logging.getLogger(__name__)
 
@@ -62,3 +63,15 @@ def generate_chart_image(data, output_buffer):
     except Exception as e:
         logger.error(f"Error generando gráfico: {str(e)}")
         raise
+
+
+
+def generate_pdf(filename, data):
+    c = canvas.Canvas(filename, pagesize=letter)
+    width, height = letter
+    c.drawString(100, height - 100, "Reporte de Ventas")
+    y = height - 150
+    for item in data:
+        c.drawString(100, y, f"Producto: {item['name']}, Cantidad: {item['quantity']}, Total: ${item['total']}")
+        y -= 20
+    c.save()
