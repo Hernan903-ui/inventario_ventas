@@ -1,12 +1,12 @@
+from flask import Blueprint, jsonify
 from flask_restx import Api, Resource
+from backend.models import Product  # Asegúrate de que este modelo exista
 
-api = Api(version='1.0', title='Inventory API',
-          description='Sistema de gestión de inventario y ventas')
+docs_bp = Blueprint('docs', __name__)
+api = Api(docs_bp, version='1.0', title='Inventario API', description='API for inventory management')
 
-products_ns = api.namespace('products', description='Operaciones con productos')
-
-@products_ns.route('/')
+@api.route('/products')
 class ProductList(Resource):
     def get(self):
-        """Listar todos los productos"""
-        return jsonify(Product.query.all())
+        products = Product.query.all()
+        return jsonify([{"id": p.id, "name": p.name, "price": p.price, "stock": p.stock} for p in products])

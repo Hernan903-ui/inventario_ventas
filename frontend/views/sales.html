@@ -1,23 +1,68 @@
-<section class="pos-view">
-    <div class="products-grid">
-        <div class="product-card" v-for="product in products" @click="addToCart(product)">
-            <h3>{{ product.name }}</h3>
-            <p>Stock: {{ product.stock }}</p>
-            <p>${{ product.price }}</p>
-        </div>
-    </div>
-    
-    <div class="cart-section">
-        <h2>Carrito</h2>
-        <div class="cart-items">
-            <div v-for="(item, index) in cart" :key="index">
-                {{ item.name }} x{{ item.quantity }}
-                <button @click="removeItem(index)">×</button>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ventas</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Inventario & Ventas</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/products">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/sales">Ventas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/suppliers">Proveedores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/analysis">Analisis</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/reports">Reportes</a>
+                    </li>
+                </ul>
             </div>
         </div>
-        <div class="cart-total">
-            Total: ${{ total }}
+    </nav>
+
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Lista de Ventas</h2>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Producto 1</td>
+                        <td>2</td>
+                        <td>$20.00</td>
+                        <td>2023-10-01</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <button class="checkout-btn" @click="processSale">Finalizar Venta</button>
     </div>
-</section>
+</body>
+</html>
