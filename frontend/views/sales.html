@@ -1,0 +1,23 @@
+<section class="pos-view">
+    <div class="products-grid">
+        <div class="product-card" v-for="product in products" @click="addToCart(product)">
+            <h3>{{ product.name }}</h3>
+            <p>Stock: {{ product.stock }}</p>
+            <p>${{ product.price }}</p>
+        </div>
+    </div>
+    
+    <div class="cart-section">
+        <h2>Carrito</h2>
+        <div class="cart-items">
+            <div v-for="(item, index) in cart" :key="index">
+                {{ item.name }} x{{ item.quantity }}
+                <button @click="removeItem(index)">×</button>
+            </div>
+        </div>
+        <div class="cart-total">
+            Total: ${{ total }}
+        </div>
+        <button class="checkout-btn" @click="processSale">Finalizar Venta</button>
+    </div>
+</section>
