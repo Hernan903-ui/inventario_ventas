@@ -17,28 +17,32 @@ class Auth {
 
     async handleLogin(e) {
         e.preventDefault();
-        const formData = new FormData(e.target);
-        
+        const email = e.target.email.value.trim();
+        const password = e.target.password.value;
+    
+        // Validaciones
+        if (!email || !password) {
+            return alert('Todos los campos son requeridos');
+        }
+        if (!/\S+@\S+\.\S+/.test(email)) {
+            return alert('Email inválido');
+        }
+    
         try {
             const response = await fetch('/api/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    email: formData.get('email'),
-                    password: formData.get('password')
-                })
+                body: JSON.stringify({ email, password })
             });
             
+            if (!response.ok) throw new Error('Error en credenciales');
+            
             const data = await response.json();
-            if (response.ok) {
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('businessId', data.business_id);
-                window.location.hash = 'products';
-            } else {
-                alert(data.error || 'Error en login');
-            }
+            localStorage.setItem('token', data.token);
+            window.location.href = '/#products';
+            
         } catch (error) {
-            console.error('Login error:', error);
+            alert(error.message);
         }
     }
 

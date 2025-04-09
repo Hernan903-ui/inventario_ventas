@@ -1,0 +1,58 @@
+<section class="view-container analytics-view">
+    <header class="view-header">
+        <h1 class="view-title"><i class="icon chart-icon"></i> Análisis Comercial</h1>
+        <div class="date-filter">
+            <label for="dateRange">Periodo:</label>
+            <select id="dateRange">
+                <option value="7">Últimos 7 días</option>
+                <option value="30" selected>Últimos 30 días</option>
+                <option value="90">Últimos 3 meses</option>
+            </select>
+        </div>
+    </header>
+
+    <div class="dashboard-grid">
+        <!-- Gráfico de Ventas -->
+        <article class="card chart-card">
+            <div class="chart-header">
+                <h2><i class="icon sales-icon"></i> Desempeño de Ventas</h2>
+                <div class="chart-legend">
+                    <span class="legend-item primary"></span> Ventas
+                </div>
+            </div>
+            <canvas id="salesChart" aria-label="Gráfico de ventas por producto"></canvas>
+        </article>
+
+        <!-- Estado del Inventario -->
+        <article class="card chart-card">
+            <div class="chart-header">
+                <h2><i class="icon inventory-icon"></i> Estado del Inventario</h2>
+                <div class="chart-legend">
+                    <span class="legend-item danger"></span> Bajo Stock
+                    <span class="legend-item success"></span> Suficiente
+                </div>
+            </div>
+            <canvas id="stockChart" aria-label="Distribución del estado del inventario"></canvas>
+        </article>
+
+        <!-- Top Productos -->
+        <article class="card list-card">
+            <h2><i class="icon top-icon"></i> Productos Más Vendidos</h2>
+            <div class="styled-list">
+                <ol id="topProductsList">
+                    <!-- Datos dinámicos desde JS -->
+                </ol>
+            </div>
+        </article>
+
+        <!-- Baja Demanda -->
+        <article class="card list-card">
+            <h2><i class="icon warning-icon"></i> Productos con Baja Demanda</h2>
+            <div class="styled-list">
+                <ul id="lowProductsList">
+                    <!-- Datos dinámicos desde JS -->
+                </ul>
+            </div>
+        </article>
+    </div>
+</section>

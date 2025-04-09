@@ -1,31 +1,49 @@
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from config import Config
+class App {
+    constructor() {
+        this.initRouter();
+        this.loadInitialView();
+    }
 
-db = SQLAlchemy()
+    initRouter() {
+        window.addEventListener("hashchange", () => this.loadView());
+    }
 
-def create_app():
-    app = Flask(__name__)
-    app.config.from_object(Config)
-    db.init_app(app)
-    
-    with app.app_context():
-        from .models import Business, User, Supplier, Product, ProductHistory
-        db.create_all()
-        
-        # Registrar blueprints
-        from .routes.auth import auth_bp
-        from .routes.products import products_bp
-        from .routes.analytics import analytics_bp
-        from .routes.reports import reports_bp
-        
-        app.register_blueprint(auth_bp)
-        app.register_blueprint(products_bp)
-        app.register_blueprint(analytics_bp)
-        app.register_blueprint(reports_bp)
-    
-    return app
+    loadInitialView() {
+        const defaultView = window.location.hash.substring(1) || "products";
+        this.loadView(defaultView);
+    }
 
-if __name__ == '__main__':
-    app = create_app()
-    app.run(host='0.0.0.0', port=5000)
+    async loadView() {
+        const viewName = window.location.hash.substring(1) || "products";
+        const viewPath = `/views/${viewName}.html`;
+
+        try {
+            const response = await fetch(viewPath);
+            if (!response.ok) throw new Error("Vista no encontrada");
+            
+            const html = await response.text();
+            document.getElementById("mainContent").innerHTML = html;
+
+            this.initViewModule(viewName);
+        } catch (error) {
+            console.error("Error cargando vista:", error);
+            document.getElementById("mainContent").innerHTML = "<h2>Error cargando la vista</h2>";
+        }
+    }
+
+    initViewModule(viewName) {
+        switch(viewName) {
+            case "products":
+                new Products();
+                break;
+            case "analytics":
+                new Analytics();
+                break;
+            default:
+                console.warn("Módulo no implementado para:", viewName);
+        }
+    }
+}
+
+// Iniciar aplicación
+new App();

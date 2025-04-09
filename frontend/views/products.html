@@ -1,0 +1,84 @@
+<section class="view-container products-view">
+    <header class="view-header">
+        <h1 class="view-title"><i class="icon inventory-icon"></i> Gestionar Productos</h1>
+        <button class="btn primary" id="showScanner">
+            <i class="icon scanner-icon"></i> Escanear Código
+        </button>
+    </header>
+
+    <div class="content-grid">
+        <!-- Formulario de Producto -->
+        <article class="card form-section">
+            <h2 class="section-title"><i class="icon add-icon"></i> Nuevo Producto</h2>
+            <form id="productForm" class="grid-form">
+                <div class="form-group">
+                    <label for="name">Nombre:</label>
+                    <input type="text" id="name" name="name" required 
+                           placeholder="Ej: Laptop HP Pavilion" autocomplete="off">
+                </div>
+                
+                <div class="form-group">
+                    <label for="barcode">Código de Barras:</label>
+                    <div class="input-group">
+                        <input type="text" id="barcode" name="barcode" 
+                               pattern="[0-9]{13}" title="13 dígitos numéricos"
+                               placeholder="Escanee o ingrese manualmente">
+                        <button type="button" class="btn icon" id="openScanner">
+                            <i class="icon barcode-icon"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="stock">Stock Inicial:</label>
+                    <input type="number" id="stock" name="stock" 
+                           min="0" step="1" value="0" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="supplier">Proveedor:</label>
+                    <select id="supplier" name="supplier_id" required>
+                        <option value="">Seleccione proveedor</option>
+                        <!-- Opciones dinámicas desde JS -->
+                    </select>
+                </div>
+
+                <div class="form-actions">
+                    <button type="reset" class="btn secondary">Limpiar</button>
+                    <button type="submit" class="btn success">Guardar Producto</button>
+                </div>
+            </form>
+        </article>
+
+        <!-- Listado de Productos -->
+        <article class="card table-section">
+            <h2 class="section-title"><i class="icon list-icon"></i> Inventario Actual</h2>
+            <div class="table-responsive">
+                <table class="data-table" aria-label="Lista de productos">
+                    <thead>
+                        <tr>
+                            <th scope="col">Código</th>
+                            <th scope="col">Producto</th>
+                            <th scope="col" class="text-center">Stock</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col" class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productsTableBody">
+                        <!-- Datos dinámicos desde JS -->
+                    </tbody>
+                </table>
+            </div>
+        </article>
+    </div>
+
+    <!-- Modal Escáner -->
+    <div id="scannerModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Escaneo de Código de Barras</h3>
+            <div id="scannerContainer"></div>
+            <p class="help-text">Acerque el código a la cámara</p>
+        </div>
+    </div>
+</section>
